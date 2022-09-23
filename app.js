@@ -37,7 +37,7 @@ console.log(new Date().getFullYear()-this.yearOfBirth);
 var John = new Person('John',1990);
 var Ana = new Teacher('Anna',1995, 'Math'); */
 
-class Person{
+/* class Person{
     constructor(name, yearOfBirth){
         this.name = name;
         this.yearOfBirth = yearOfBirth;
@@ -62,4 +62,51 @@ class Teacher extends Person{
 
 }
 const joihn = new Person('Joihn', 1990);
-const ann = new Teacher('Ann', 1998, 'Math');
+const ann = new Teacher('Ann', 1998, 'Math'); */
+class ProductList {
+    constructor(container = '.products'){
+        this.container = container;
+        this.goods = [];
+        this.allProducts = [];
+        this._fetchProducts();
+        this._render();
+
+      
+    }
+    _fetchProducts(){
+        this.goods = [
+    {id:1, title:'Notebook', price:1000},
+    {id:2, title:'Notebook2', price:1000},
+    {id:3, title:'Notebook2', price:1000},
+    {id:4, title:'Notebook4', price:1000},
+        ]
+    }
+
+    _render(){
+        const block = document.querySelector(this.container);
+
+        for(let product of this.goods){
+            const productObject = new ProductItem(product);
+            this.allProducts.push(productObject);
+            block.insertAdjacentHTML('beforeend',productObject.render())
+        }
+    }
+}
+class ProductItem {
+    constructor(product, img ='bg' ){
+        this.img = img;
+        this.title = product.title;
+        this.price = product.price;
+       
+        
+    }
+    render(){
+        return `<div class="products"> 
+        <img src="${this.img}" alt="Some img">
+                <h3>${this.title}</h3>
+                <p>${this.price}</p>
+                <button class="by-btn">Add</button>
+                 </div>`;
+    }
+}
+const list = new ProductList();
